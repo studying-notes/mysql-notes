@@ -1,63 +1,84 @@
-# MySQL 基础操作
+---
+date: 2020-10-12T10:41:51+08:00  # 创建日期
+author: "Rustle Karl"  # 作者
 
-- [MySQL 基础操作](#mysql-基础操作)
-  - [创建和删除数据库](#创建和删除数据库)
-  - [获取表内所有列的名称和类型/表结构](#获取表内所有列的名称和类型表结构)
-  - [增删查改](#增删查改)
-    - [创建表](#创建表)
-    - [删除表](#删除表)
-    - [清空表](#清空表)
-    - [插入](#插入)
-    - [查询](#查询)
-    - [修改](#修改)
-    - [不存在则插入，存在则更新](#不存在则插入存在则更新)
-    - [创建 B 表，完整复制 A 表的结构和索引，而且不要数据](#创建-b-表完整复制-a-表的结构和索引而且不要数据)
-    - [查看某一用户的权限](#查看某一用户的权限)
-    - [当前 BINARY LOG 文件和 POSITION 值](#当前-binary-log-文件和-position-值)
-    - [切换 BINARY LOG](#切换-binary-log)
-    - [整理表数据文件的碎片](#整理表数据文件的碎片)
-    - [得到TA_LHR表的建表语句](#得到ta_lhr表的建表语句)
-    - [修改命令提示符](#修改命令提示符)
-    - [MySQL 中的 pager 命令的作用](#mysql-中的-pager-命令的作用)
-    - [SHOW WARNINGS 和 SHOW ERRORS 的作用](#show-warnings-和-show-errors-的作用)
-    - [快速地复制一张表及其数据](#快速地复制一张表及其数据)
-    - [MySQL 中的 IFNULL() 的作用](#mysql-中的-ifnull-的作用)
-    - [](#)
-    - [在表的指定位置添加列](#在表的指定位置添加列)
-    - [删除列](#删除列)
-    - [复杂查询](#复杂查询)
-  - [查询数据库的用户](#查询数据库的用户)
-  - [查看创建的索引及索引类型等信息](#查看创建的索引及索引类型等信息)
-  - [查看数据库的版本、当前登录用户和当前的数据库名称](#查看数据库的版本当前登录用户和当前的数据库名称)
-  - [常用日期和时间函数](#常用日期和时间函数)
-    - [dayofweek()](#dayofweek)
-    - [dayofyear()](#dayofyear)
-    - [hour/minute/second()](#hourminutesecond)
-    - [date_format()](#date_format)
-    - [str_to_date()](#str_to_date)
-    - [curdate()/current_date](#curdatecurrent_date)
-    - [curtime()/current_time](#curtimecurrent_time)
-    - [now()/sysdate()/current_timestamp](#nowsysdatecurrent_timestamp)
-    - [sec_to_time()](#sec_to_time)
-    - [time_to_sec()](#time_to_sec)
-  - [MySQL 数据类型](#mysql-数据类型)
-    - [数值类型](#数值类型)
-    - [日期和时间类型](#日期和时间类型)
-    - [字符串类型](#字符串类型)
-  - [MySQL 数据类型的属性](#mysql-数据类型的属性)
-  - [MySQL 中运算符 “<=>” 的作用](#mysql-中运算符--的作用)
-  - [MySQL中 IIMIT 的作用](#mysql中-iimit-的作用)
-  - [对一张表同时进行查询和更新](#对一张表同时进行查询和更新)
-  - [MySQL 中 LENGTH 和 CHAR LENGTH 的区别](#mysql-中-length-和-char-length-的区别)
-  - [函数FROM_UNIXTIME和UNIX_TIMESTAMP的作用](#函数from_unixtime和unix_timestamp的作用)
+# 文章
+title: "MySQL 基础操作"  # 文章标题
+url:  "posts/mysql/docs/crud"  # 设置网页永久链接
+tags: [ "mysql", "crud"]  # 标签
+series: [ "MySQL 学习笔记"]  # 系列
+categories: [ "学习笔记"]  # 分类
+
+# 章节
+weight: 20 # 排序优先级
+chapter: false  # 设置为章节
+
+index: true  # 是否可以被索引
+toc: false  # 是否自动生成目录
+draft: false  # 草稿
+---
+
+- [创建和删除数据库](#创建和删除数据库)
+- [获取表内所有列的名称和类型/表结构](#获取表内所有列的名称和类型表结构)
+- [增删查改](#增删查改)
+  - [创建表](#创建表)
+  - [删除表](#删除表)
+  - [清空表](#清空表)
+  - [插入](#插入)
+  - [查询](#查询)
+  - [修改](#修改)
+  - [不存在则插入，存在则更新](#不存在则插入存在则更新)
+  - [创建 B 表，完整复制 A 表的结构和索引，而且不要数据](#创建-b-表完整复制-a-表的结构和索引而且不要数据)
+  - [查看某一用户的权限](#查看某一用户的权限)
+  - [当前 BINARY LOG 文件和 POSITION 值](#当前-binary-log-文件和-position-值)
+  - [切换 BINARY LOG](#切换-binary-log)
+  - [整理表数据文件的碎片](#整理表数据文件的碎片)
+  - [得到TA_LHR表的建表语句](#得到ta_lhr表的建表语句)
+  - [修改命令提示符](#修改命令提示符)
+  - [MySQL 中的 pager 命令的作用](#mysql-中的-pager-命令的作用)
+  - [SHOW WARNINGS 和 SHOW ERRORS 的作用](#show-warnings-和-show-errors-的作用)
+  - [快速地复制一张表及其数据](#快速地复制一张表及其数据)
+  - [MySQL 中的 IFNULL() 的作用](#mysql-中的-ifnull-的作用)
+  - [](#)
+  - [在表的指定位置添加列](#在表的指定位置添加列)
+  - [删除列](#删除列)
+  - [分组聚合](#分组聚合)
+- [查询数据库的用户](#查询数据库的用户)
+- [查看创建的索引及索引类型等信息](#查看创建的索引及索引类型等信息)
+- [查看数据库的版本、当前登录用户和当前的数据库名称](#查看数据库的版本当前登录用户和当前的数据库名称)
+- [常用日期和时间函数](#常用日期和时间函数)
+  - [dayofweek()](#dayofweek)
+  - [dayofyear()](#dayofyear)
+  - [hour/minute/second()](#hourminutesecond)
+  - [date_format()](#date_format)
+  - [str_to_date()](#str_to_date)
+  - [curdate()/current_date](#curdatecurrent_date)
+  - [curtime()/current_time](#curtimecurrent_time)
+  - [now()/sysdate()/current_timestamp](#nowsysdatecurrent_timestamp)
+  - [sec_to_time()](#sec_to_time)
+  - [time_to_sec()](#time_to_sec)
+- [MySQL 数据类型](#mysql-数据类型)
+  - [数值类型](#数值类型)
+  - [日期和时间类型](#日期和时间类型)
+  - [字符串类型](#字符串类型)
+- [MySQL 数据类型的属性](#mysql-数据类型的属性)
+- [MySQL 中运算符 “<=>” 的作用](#mysql-中运算符--的作用)
+- [MySQL中 IIMIT 的作用](#mysql中-iimit-的作用)
+- [对一张表同时进行查询和更新](#对一张表同时进行查询和更新)
+- [MySQL 中 LENGTH 和 CHAR LENGTH 的区别](#mysql-中-length-和-char-length-的区别)
+- [函数FROM_UNIXTIME和UNIX_TIMESTAMP的作用](#函数from_unixtime和unix_timestamp的作用)
 
 ## 创建和删除数据库
 
 ```sql
 create database mysql_test character set utf8;
+```
 
+```sql
 create database mysql_test character set gbk;
+```
 
+```sql
 drop database mysql_test;
 ```
 
@@ -161,10 +182,6 @@ MySQL 的 REPLACE INTO 有3种形式：
 
 其中，“INTO” 关键字可以省略，不过最好加上 “INTO”，这样意思更加直观。另外，对于那些没有给予值的列，MySQL 将自动为这些列赋上默认值。
 
-```sql
-
-```
-
 ### 创建 B 表，完整复制 A 表的结构和索引，而且不要数据
 
 ```sql
@@ -255,7 +272,9 @@ alter table test
 alter table test drop column age;
 ```
 
-### 复杂查询
+### 分组聚合
+
+聚合查询的列中，只能放入分组的列，以及对该列进行操作的函数。
 
 ```sql
 create table `t1`
@@ -321,7 +340,7 @@ group by name
 having avg(score) between 60 and 80;
 ```
 
-1. 查询总分大于150分，平均分小于90分的人
+5. 查询总分大于150分，平均分小于90分的人
 
 ```sql
 select name, sum(score), avg(score)

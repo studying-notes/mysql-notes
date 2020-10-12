@@ -1,5 +1,22 @@
-# 维护 MySQL 数据库
+---
+date: 2020-10-12T10:41:51+08:00  # 创建日期
+author: "Rustle Karl"  # 作者
 
+# 文章
+title: "MySQL 维护"  # 文章标题
+url:  "posts/mysql/docs/maintenance"  # 设置网页永久链接
+tags: [ "mysql"]  # 标签
+series: [ "MySQL 学习笔记"]  # 系列
+categories: [ "学习笔记"]  # 分类
+
+# 章节
+weight: 20 # 排序优先级
+chapter: false  # 设置为章节
+
+index: true  # 是否可以被索引
+toc: true  # 是否自动生成目录
+draft: false  # 草稿
+---
 
 ## 获取表的详细信息
 
