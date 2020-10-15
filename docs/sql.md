@@ -20,10 +20,12 @@ draft: false  # 草稿
 
 - [创建数据库](#创建数据库)
 - [创建数据表](#创建数据表)
+- [显示数据表描述信息](#显示数据表描述信息)
 - [删除数据表](#删除数据表)
 - [清空数据库](#清空数据库)
 - [切换当前数据库](#切换当前数据库)
 - [查询数据](#查询数据)
+- [多表查询](#多表查询)
 - [返回唯一不同的值](#返回唯一不同的值)
 - [Where 条件过滤](#where-条件过滤)
 - [AND & OR 运算符](#and--or-运算符)
@@ -64,6 +66,16 @@ CREATE TABLE `apps` (
 - CHECK - 保证列中的值符合指定的条件
 - DEFAULT - 规定没有给列赋值时的默认值
 
+```sql
+CREATE TABLE IF NOT EXISTS `tableName`;
+```
+
+## 显示数据表描述信息
+
+```sql
+describe tableName;
+```
+
 ## 删除数据表
 
 ```sql
@@ -96,6 +108,24 @@ FROM websites;
 SELECT country
 FROM websites;
 ```
+
+## 多表查询
+
+```sql
+select common_name as 'Bird', bird_families.scientific_name as 'Family'
+from birds,
+     bird_families
+where birds.family_id = bird_families.family_id
+  and order_id = 102
+  and common_name != ''
+order by common_name
+limit 10;
+```
+
+```sql
+
+```
+
 
 ## 返回唯一不同的值
 

@@ -1,10 +1,10 @@
 ---
-date: 2020-10-13T20:52:34+08:00  # 创建日期
+date: 2020-10-15T20:52:34+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
 # 文章
 title: "MySQL JOIN 方法理解"  # 文章标题
-url:  "posts/mydql/docs/join"  # 设置网页永久链接
+url:  "posts/mysql/docs/join"  # 设置网页永久链接
 tags: [ "sql", "mysql"]  # 标签
 series: [ "MySQL 学习笔记"]  # 系列
 categories: [ "学习笔记"]  # 分类
