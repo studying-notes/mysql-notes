@@ -274,7 +274,7 @@ alter table test drop column age;
 
 ### 分组聚合
 
-聚合查询的列中，只能放入分组的列，以及对该列进行操作的函数。
+聚合查询的列中，只能放入分组的列，以及对该分组进行操作的函数。
 
 ```sql
 create table `t1`

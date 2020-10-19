@@ -20,14 +20,14 @@ draft: false  # 草稿
 
 ## JOIN 简介
 
-- INNER JOIN：如果表中有至少一个匹配，则返回行
-- LEFT JOIN：即使右表中没有匹配，也从左表返回所有的行
-- RIGHT JOIN：即使左表中没有匹配，也从右表返回所有的行
-- FULL JOIN：只要其中一个表中存在匹配，则返回行
+- `INNER JOIN`：如果表中有至少一个匹配，则返回行
+- `LEFT JOIN`：即使右表中没有匹配，也从左表返回所有的行
+- `RIGHT JOIN`：即使左表中没有匹配，也从右表返回所有的行
+- `FULL JOIN`：只要其中一个表中存在匹配，则返回行
 
 ## INNER JOIN
 
-> 交集
+如果表中有至少一个匹配，则返回行。
 
 ```sql
 SELECT websites.id, websites.name, access_log.count, access_log.date
@@ -38,7 +38,7 @@ FROM websites
 
 ## LEFT JOIN
 
-> 右边表-左边表
+即使右表中没有匹配，也从左表返回所有的行。
 
 ```sql
 SELECT websites.name, access_log.count, access_log.date
@@ -48,9 +48,13 @@ FROM websites
 ORDER BY access_log.count DESC;
 ```
 
+### Leetcode 题目示例
+
+https://leetcode-cn.com/problems/combine-two-tables/
+
 ## RIGHT JOIN
 
-> 左边表-右边表
+即使左表中没有匹配，也从右表返回所有的行。
 
 ```sql
 SELECT websites.name, access_log.count, access_log.date

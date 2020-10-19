@@ -4,7 +4,7 @@ author: "Rustle Karl"  # 作者
 
 # 文章
 title: "MySQL 索引"  # 文章标题
-url:  "posts/mysql/docs/index"  # 设置网页永久链接
+url:  "posts/mysql/docs/idx"  # 设置网页永久链接
 tags: [ "mysql"]  # 标签
 series: [ "MySQL 学习笔记"]  # 系列
 categories: [ "学习笔记"]  # 分类

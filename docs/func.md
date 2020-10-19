@@ -1,10 +1,9 @@
 ---
-date: 2020-10-14T20:48:27+08:00  # 创建日期
+date: 2020-10-12T10:41:51+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
 # 文章
 title: "MySQL 函数"  # 文章标题
-# description: "文章描述"
 url:  "posts/mysql/docs/func"  # 设置网页永久链接
 tags: [ "mysql"]  # 标签
 series: [ "MySQL 学习笔记"]  # 系列
@@ -18,6 +17,12 @@ index: true  # 是否可以被索引
 toc: true  # 是否自动生成目录
 draft: false  # 草稿
 ---
+
+## 窗口函数
+
+### DENSE_RANK()
+
+对分析对象进行排序
 
 ## 时间函数
 
@@ -47,6 +52,22 @@ SELECT COUNT(*) FROM tableName GROUP BY key_id LIMIT 10;
 
 ```sql
 select ifnull(email, 'email'), id from users;
+```
+
+## 自定义函数
+
+### 第 N 高的薪水
+
+https://leetcode-cn.com/problems/nth-highest-salary/
+
+```sql
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  SET n = N-1;
+  RETURN (     
+  SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT n,1
+  );
+END
 ```
 
 ```sql

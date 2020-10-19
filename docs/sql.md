@@ -23,6 +23,8 @@ draft: false  # 草稿
 - [显示数据表描述信息](#显示数据表描述信息)
 - [删除数据表](#删除数据表)
 - [清空数据库](#清空数据库)
+  - [MySQL](#mysql)
+  - [SQLite](#sqlite)
 - [切换当前数据库](#切换当前数据库)
 - [查询数据](#查询数据)
 - [多表查询](#多表查询)
@@ -30,6 +32,8 @@ draft: false  # 草稿
 - [Where 条件过滤](#where-条件过滤)
 - [AND & OR 运算符](#and--or-运算符)
 - [ORDER BY 排序](#order-by-排序)
+  - [升序](#升序)
+  - [降序](#降序)
 - [插入新记录](#插入新记录)
 - [更新表中的记录](#更新表中的记录)
 - [删除表中的记录](#删除表中的记录)
@@ -86,9 +90,25 @@ DROP TABLE IF EXISTS `apps`;
 
 > 删除表内的数据，但并不删除表本身
 
+### MySQL
+
 ```sql
-TRUNCATE TABLE `apps`;
+TRUNCATE TABLE `tableName`;
 ```
+
+### SQLite
+
+```sql
+DELETE FROM `tableName`;
+```
+
+这种方法无法将递增数归零，如果要将递增数归零，可以同时执行以下命令：
+
+```sql
+DELETE FROM sqlite_sequence WHERE name = 'tableName';
+```
+
+> 当 SQLite 数据库中包含自增列时，会自动建立一个名为 sqlite_sequence 的表。这个表包含两个列：name 和 seq。name 记录自增列所在的表，seq 记录当前序号（下一条记录的编号就是当前序号加 1）。如果想把某个自增列的序号归零，只需要修改 sqlite_sequence 表就可以了。
 
 ## 切换当前数据库
 
@@ -167,19 +187,26 @@ WHERE alexa > 2
 
 ## ORDER BY 排序
 
+### 升序
+
+默认按照升序对记录进行排序。
+
 ```sql
-# 默认按照升序对记录进行排序
 SELECT *
 FROM websites
 ORDER BY alexa;
 
 SELECT *
 FROM websites
-ORDER BY alexa DESC;
+ORDER BY country, alexa;
+```
 
+### 降序
+
+```sql
 SELECT *
 FROM websites
-ORDER BY country, alexa;
+ORDER BY alexa DESC;
 ```
 
 ## 插入新记录
