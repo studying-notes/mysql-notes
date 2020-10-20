@@ -58,6 +58,7 @@ CREATE TABLE `apps` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `app_name` char(20) NOT NULL DEFAULT '' COMMENT '站点名称',
   `url` varchar(255) NOT NULL DEFAULT '',
+  `status` enum ('completed','cancelled_by_driver','cancelled_by_client') DEFAULT NULL,
   `country` char(10) NOT NULL DEFAULT '' COMMENT '国家',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
