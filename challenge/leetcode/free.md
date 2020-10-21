@@ -3,8 +3,8 @@ date: 2020-10-15T21:49:26+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
 # 文章
-title: "LeetCode 数据库解题"  # 文章标题
-url:  "posts/mysql/challenge/leetcode"  # 设置网页永久链接
+title: "LeetCode 数据库解题（免费部分）"  # 文章标题
+url:  "posts/mysql/challenge/leetcode/free"  # 设置网页永久链接
 tags: [ "mysql", "leetcode", "sql"]  # 标签
 series: [ "LeetCode 解题笔记", "MySQL 学习笔记" ]  # 系列
 categories: [ "解题笔记"]  # 分类
@@ -17,6 +17,28 @@ index: true  # 是否可以被索引
 toc: true  # 是否自动生成目录
 draft: false  # 草稿
 ---
+
+- [组合两个表](#组合两个表)
+- [第二高的薪水](#第二高的薪水)
+  - [错误](#错误)
+  - [LIMIT](#limit)
+  - [正确方法一](#正确方法一)
+  - [正确方法二](#正确方法二)
+- [第 N 高的薪水](#第-n-高的薪水)
+- [分数排名](#分数排名)
+- [连续出现的数字](#连续出现的数字)
+- [超过经理收入的员工](#超过经理收入的员工)
+- [查找重复的电子邮箱](#查找重复的电子邮箱)
+- [从不订购的客户](#从不订购的客户)
+- [部门工资最高的员工](#部门工资最高的员工)
+- [部门工资前三高的所有员工](#部门工资前三高的所有员工)
+- [删除重复的电子邮箱](#删除重复的电子邮箱)
+- [上升的温度](#上升的温度)
+- [行程和用户](#行程和用户)
+- [超过 5 名学生的课](#超过-5-名学生的课)
+- [体育馆的人流量](#体育馆的人流量)
+- [换座位](#换座位)
+- [行转列](#行转列)
 
 ## 组合两个表
 
@@ -454,80 +476,34 @@ where t1.people >= 100
 order by t1.id;
 ```
 
-## 题目
+## 换座位
+
+https://leetcode-cn.com/problems/exchange-seats/
 
 ```sql
-
+select if(mod(id, 2) = 0, id - 1, if(id != (select count(*) from seat), id + 1, id)) as id, student
+from seat
+order by id;
 ```
 
-## 题目
+## 行转列
+
+https://leetcode-cn.com/problems/reformat-department-table/
 
 ```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
-```
-
-## 题目
-
-```sql
-
+SELECT id,
+SUM(CASE `month` WHEN 'Jan' THEN revenue END) Jan_Revenue,
+SUM(CASE `month` WHEN 'Feb' THEN revenue END) Feb_Revenue,
+SUM(CASE `month` WHEN 'Mar' THEN revenue END) Mar_Revenue,
+SUM(CASE `month` WHEN 'Apr' THEN revenue END) Apr_Revenue,
+SUM(CASE `month` WHEN 'May' THEN revenue END) May_Revenue,
+SUM(CASE `month` WHEN 'Jun' THEN revenue END) Jun_Revenue,
+SUM(CASE `month` WHEN 'Jul' THEN revenue END) Jul_Revenue,
+SUM(CASE `month` WHEN 'Aug' THEN revenue END) Aug_Revenue,
+SUM(CASE `month` WHEN 'Sep' THEN revenue END) Sep_Revenue,
+SUM(CASE `month` WHEN 'Oct' THEN revenue END) Oct_Revenue,
+SUM(CASE `month` WHEN 'Nov' THEN revenue END) Nov_Revenue,
+SUM(CASE `month` WHEN 'Dec' THEN revenue END) Dec_Revenue
+FROM Department
+GROUP BY id;
 ```
