@@ -18,6 +18,12 @@ toc: true  # 是否自动生成目录
 draft: false  # 草稿
 ---
 
+## 条件判断函数
+
+### coalesce
+
+coalesce(expression_1, expression_2, ..., expression_n) 依次参考各参数表达式，遇到非 null 值即停止并返回该值。如果所有的表达式都是空值，最终将返回一个空值。
+
 ## 时间函数
 
 - NOW() 返回当前的日期和时间
