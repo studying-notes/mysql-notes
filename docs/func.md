@@ -24,6 +24,21 @@ draft: false  # 草稿
 
 coalesce(expression_1, expression_2, ..., expression_n) 依次参考各参数表达式，遇到非 null 值即停止并返回该值。如果所有的表达式都是空值，最终将返回一个空值。
 
+### case
+
+```sql
+select country_name,
+       case
+           when avg(weather_state) <= 15 then 'Cold'
+           when avg(weather_state) >= 25 then 'Hot'
+           else 'Warm' end weather_type
+from Countries,
+     Weather46
+where Countries.country_id = Weather46.country_id
+  and month(day) = 11
+group by country_name;
+```
+
 ## 时间函数
 
 - NOW() 返回当前的日期和时间
@@ -32,7 +47,15 @@ coalesce(expression_1, expression_2, ..., expression_n) 依次参考各参数表
 - DATE() 提取日期或日期/时间表达式的日期部分
 - EXTRACT() 返回日期/时间的单独部分
 - DATE_ADD() 向日期添加指定的时间间隔
-- DATE_SUB() 从日期减去指定的时间间隔
+
+### DATE_SUB() 
+
+从日期减去指定的时间间隔。
+
+```sql
+select DATE_SUB('2019-07-5', INTERVAL 1 DAY);
+```
+
 - DATEDIFF() 返回两个日期之间的天数
 - DATE_FORMAT() 用不同的格式显示日期/时间
 
