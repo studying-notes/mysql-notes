@@ -39,6 +39,18 @@ where Countries.country_id = Weather46.country_id
 group by country_name;
 ```
 
+### any / all / in / some
+
+用于子查询，子查询就是指在一个 select 语句中嵌套另一个 select 语句。
+
+any / all 关键字必须与一个比较操作符一起使用。any 表示有任何一个满足就返回 true，all 表示全部都满足才返回 true。
+
+语句 some 是 any 的别名，用法相同。
+
+not in 是 “<>all” 的别名，用法相同。
+
+语句 in 与 “=any” 是相同的。
+
 ## 时间函数
 
 - NOW() 返回当前的日期和时间
@@ -57,6 +69,19 @@ select DATE_SUB('2019-07-5', INTERVAL 1 DAY);
 ```
 
 - DATEDIFF() 返回两个日期之间的天数
+
+### DATEDIFF
+
+返回两个日期之间的天数
+
+```sql
+select datediff('2020-11-1', '2020-7-13') as days;
+```
+
+```
+111
+```
+
 - DATE_FORMAT() 用不同的格式显示日期/时间
 
 ## COUNT()
