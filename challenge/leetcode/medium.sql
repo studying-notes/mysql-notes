@@ -83,5 +83,171 @@ from Views
 group by viewer_id, view_date
 having count(distinct article_id) > 1;
 
+# 计算税后工资
+select S1.company_id     company_id,
+       S1.employee_id    employee_id,
+       S1.employee_name  employee_name,
+       round(case
+                 when max_salary < 1000 then salary
+                 when max_salary > 10000 then salary * (1 - 0.49)
+                 else salary * (1 - 0.24)
+                 end, 0) salary
+from Salaries S1,
+     (select company_id, max(salary) max_salary
+      from Salaries
+      group by company_id) S2
+where S1.company_id = S2.company_id;
+
+# 股票盈亏情况
+select stock_name, sum(if(operation = 'Buy', -price, price)) capital_gain_loss
+from Stocks
+group by stock_name
+order by capital_gain_loss desc;
+
+# 部门学生数量
+select dept_name, sum(if(student_id is null, 0, 1)) student_number
+from department
+         left join student s on department.dept_id = s.dept_id
+group by dept_name;
+
+# 票数最多的人
+select name
+from Candidate
+where id = (select candidate_id
+            from Vote
+            group by candidate_id
+            order by count(*) desc
+            limit 1);
+
+# 不受欢迎的书
+select B1.book_id
+from Books B1
+         left join (
+    select book_id, sum(if(dispatch_date between '2018-06-23' and '2019-05-23', quantity, 0)) quantity
+    from Orders
+    group by book_id) B2 on B1.book_id = B2.book_id
+where available_from < date_sub('2019-06-23', interval 1 month)
+  and ifnull(B2.quantity, 0) < 10;
+
+# 打印二叉树
+select id,
+       case
+           when p_id is null then 'Root'
+           when id not in (select p_id from tree where p_id is not null group by p_id) then 'Leaf'
+           else 'Inner'
+           end as Type
+from tree
+order by id;
+
+# 表达式计算
+set @y = (select value
+          from Variables
+          where name = 'y');
+set @x = (select value
+          from Variables
+          where name = 'x');
+select left_operand,
+       operator,
+       right_operand,
+       case
+           when operator = '>'
+               then if(if(left_operand = 'x', @x, @y) > if(right_operand = 'x', @x, @y), 'true',
+                       'false')
+           when operator = '='
+               then if(if(left_operand = 'x', @x, @y) = if(right_operand = 'x', @x, @y), 'true',
+                       'false')
+           when operator = '<'
+               then if(if(left_operand = 'x', @x, @y) < if(right_operand = 'x', @x, @y), 'true',
+                       'false')
+           end value
+from Expressions;
+
+with T as (
+    select e.left_operand, e.operator, e.right_operand, v1.value as left_val, v2.value as right_val
+    from Expressions e
+             join Variables v1
+                  on v1.name = e.left_operand
+             join Variables v2
+                  on v2.name = e.right_operand
+)
+select T.left_operand,
+       T.operator,
+       T.right_operand,
+       case
+           when T.operator = '<' then (select T.left_val < T.right_val)
+           when T.operator = '>' then (select T.left_val > T.right_val)
+           when T.operator = '=' then (select T.left_val = T.right_val)
+           end value
+from T;
+
+# 找出连续自然数的开始和结束
+set @cnt = 0;
+set @gp = 1;
+select min(log_id) start_id, max(log_id) end_id
+from (select log_id, if(log_id != @cnt, @gp := @gp + 1, @gp) gp, @cnt := log_id + 1
+      from Logs
+      order by log_id) L
+group by gp;
+
+select min(log_id) start_id, max(log_id) end_id
+from (
+         select log_id, log_id - row_number() over (order by log_id) as rk
+         from Logs) L
+group by rk
+
+# 加好友最多的人
+select id, sum(num) num
+from (select requester_id id, count(*) num
+      from request_accepted
+      group by requester_id
+      union all
+      select accepter_id id, count(*) num
+      from request_accepted
+      group by accepter_id) A
+group by id
+order by num desc
+limit 1;
+
+# 累进求和
+select player_id,
+       event_date,
+       sum(games_played)
+           over (
+               partition by player_id
+               order by event_date
+               ) games_played_so_far
+from Activity
+order by 1, 2;
+
+# 能进电梯的最后一个人
+select person_name
+from (
+         select person_name,
+                turn,
+                sum(weight) over (order by turn) total
+         from Queue
+     ) Q
+where Q.total <= 1000
+order by Q.turn desc
+limit 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

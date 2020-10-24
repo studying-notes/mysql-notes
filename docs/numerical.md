@@ -54,6 +54,7 @@ draft: false  # 草稿
 | [`SQRT()`](#SQRT) | 返回参数的非负平方根 |
 | [`STD()`](#STD) | 返回参数的标准方差值 |
 | [`STDDEV()`](#STDDEV) | 返回参数的标准方差值 |
+| [`SUM()`](#SUM) | 求和，累计求和 |
 | [`TAN()`](#TAN) | 返回参数（以弧度计）的正切值 |
 | [`TRUNCATE()`](#TRUNCATE) | 将数值参数 `expr1` 的小数位截取到 `expr2` 位如果 `expr2` 为0，则结果没有小数位 |
 
@@ -97,7 +98,6 @@ select round(3.14159, 3);
 - LAST() - 返回最后一个记录的值
 - MAX() - 返回最大值
 - MIN() - 返回最小值
-- SUM() - 返回总和
 - MOD() - 取余数
 
 
@@ -595,6 +595,24 @@ mysql>SELECT STD(PRICE) STD_DEVIATION FROM CARS;
 | 7650.2146                                               |
 +---------------------------------------------------------+
 1 row in set (0.00 sec)
+```
+
+## SUM()
+
+求和函数。
+
+### 累进求和
+
+```sql
+select player_id,
+       event_date,
+       sum(games_played)
+           over (
+               partition by player_id
+               order by event_date
+               ) games_played_so_far
+from Activity
+order by 1, 2
 ```
 
 ## TAN(X)

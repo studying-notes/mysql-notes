@@ -68,9 +68,11 @@ ORDER BY access_log.count DESC;
 
 ## UNION
 
-> 操作符合并两个或多个 SELECT 语句的结果，UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。
+> 将一个表的行添加到另一个表的下面，操作符合并两个或多个 SELECT 语句的结果，UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。
 
 ### 只会选取不同的值
+
+> 相同行只留一行。
 
 ```sql
 SELECT country
@@ -82,6 +84,8 @@ ORDER BY country;
 ```
 
 ### 选取所有的值
+
+> 保留全部相同行。
 
 ```sql
 SELECT country, name
