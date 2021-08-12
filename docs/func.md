@@ -39,6 +39,31 @@ where Countries.country_id = Weather46.country_id
 group by country_name;
 ```
 
+## IFNULL()
+
+```sql
+select ifnull(email, 'email'), id from users;
+```
+
+- null 和任何值都不能比较。
+- null 只能用 is null 或者 is not null 来判断，不能用 = 或者 = 来判断。
+- 对于 varchar 数据类型，无论是空字符串还是 NULL 值都不占用任何空间。
+- 对于 char 类型，无论是空字符串还是 NULL 值会占用空间，所占用空间大小取决于建表时候指定的 char 数据类型的大小。
+
+## IF()
+
+三位运算符
+
+```sql
+select if(email, 'email', 'noemail'), id from users;
+```
+
+SQLite 不支持 IF 函数
+
+```sql
+select case when email is not null then 'email' else 'noemail' end as email, id from users;
+```
+
 ### any / all / in / some
 
 用于子查询，子查询就是指在一个 select 语句中嵌套另一个 select 语句。
@@ -84,6 +109,21 @@ select datediff('2020-11-1', '2020-7-13') as days;
 
 - DATE_FORMAT() 用不同的格式显示日期/时间
 
+### TIMEDIFF
+
+返回两个日期之间差的时间
+
+```sql
+SELECT TIMEDIFF('1997-12-31 23:59:59.000001',
+                '1997-12-30 01:01:01.000002');
+```
+
+```
+22:58:57
+```
+
+忽略了日期部分。
+
 ## COUNT()
 
 > 返回行数
@@ -94,12 +134,6 @@ SELECT COUNT(*) FROM tableName;
 
 ```sql
 SELECT COUNT(*) FROM tableName GROUP BY key_id LIMIT 10;
-```
-
-## IFNULL()
-
-```sql
-select ifnull(email, 'email'), id from users;
 ```
 
 ## 自定义函数

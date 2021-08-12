@@ -37,8 +37,11 @@ create table tableNew like tableOld;
 ALTER TABLE tableName CHANGE COLUMN column newColumn int;
 ```
 
-```sql
+## 修改行的字符集
 
+```sql
+ALTER TABLE status
+    MODIFY COLUMN serial_number varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 
 ```sql
