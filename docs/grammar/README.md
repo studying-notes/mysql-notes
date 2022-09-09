@@ -23,3 +23,4 @@ draft: true  # 草稿
 - [MySQL 字符串函数](string.md)
 - [MySQL 事务 Transaction](transaction.md)
 - [MySQL 变量定义和变量赋值](vars.md)
+- [MySQL 维护](maintainer.md)
