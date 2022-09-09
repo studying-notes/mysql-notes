@@ -6,7 +6,7 @@ title: "MySQL 学习笔记"  # 文章标题
 description: "纸上得来终觉浅，学到过知识点分分钟忘得一干二净，今后无论学什么，都做好笔记吧。"
 url:  "posts/mysql/README"  # 设置网页永久链接
 tags: [ "mysql", "README" ]  # 标签
-categories: [ "Mysql 学习笔记" ]  # 分类
+categories: [ "MySQL 学习笔记" ]  # 分类
 
 index: true  # 是否可以被索引
 toc: true  # 是否自动生成目录

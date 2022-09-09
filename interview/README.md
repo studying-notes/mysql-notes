@@ -5,7 +5,7 @@ author: "Rustle Karl"  # 作者
 title: "MySQL 面试题搜集"  # 文章标题
 url:  "posts/mysql/interview/README"  # 设置网页永久链接
 tags: [ "mysql", "readme" ]  # 标签
-categories: [ "Mysql 学习笔记" ]  # 分类
+categories: [ "MySQL 学习笔记" ]  # 分类
 
 toc: true  # 目录
 draft: true  # 草稿

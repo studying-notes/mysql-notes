@@ -5,7 +5,7 @@ author: "Rustle Karl"  # 作者
 title: "LeetCode 数据库解题（中等级别）"  # 文章标题
 url:  "posts/mysql/interview/leetcode/medium"  # 设置网页永久链接
 tags: [ "mysql", "leetcode" ]  # 标签
-categories: [ "Mysql 学习笔记" ]  # 分类
+categories: [ "MySQL 学习笔记" ]  # 分类
 
 toc: true  # 目录
 draft: true  # 草稿
