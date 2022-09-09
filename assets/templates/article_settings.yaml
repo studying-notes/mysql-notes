@@ -1,5 +1,5 @@
 tags: [ "mysql", "{tag}" ]  # 标签
-categories: [ "Mysql 学习笔记" ]  # 分类
+categories: [ "MySQL 学习笔记" ]  # 分类
 
 toc: true  # 目录
 draft: true  # 草稿
