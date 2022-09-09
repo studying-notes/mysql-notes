@@ -31,6 +31,7 @@ MySQL、MariaDB、SQLite 等数据库学习笔记，包括入门基础教程、�
 - `docs`: 基础教程，成体系的，或者分类的文章笔记
   - `docs/grammar`: [语法](docs/grammar/README.md)
   - `docs/internal`: [内部实现](docs/internal/README.md)
+  - `docs/theory`: [数据库理论](docs/theory/README.md)
 
 - `examples`: [实现单个简单功能的项目示例合集](examples/README.md)
 
