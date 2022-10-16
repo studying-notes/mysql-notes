@@ -24,10 +24,6 @@ MySQL、MariaDB、SQLite 等数据库学习笔记，包括入门基础教程、�
 - `assets`: 存储图片及模板文件
   - `assets/templates`: 笔记模板
 
-- `algorithm`: 数据结构与算法
-  - `algorithm/structures`: [数据结构](algorithm/structures/README.md)
-  - `algorithm/math`: [基础数学](algorithm/math/README.md)
-
 - `docs`: 基础教程，成体系的，或者分类的文章笔记
   - `docs/grammar`: [语法](docs/grammar/README.md)
   - `docs/internal`: [内部实现](docs/internal/README.md)
@@ -36,10 +32,6 @@ MySQL、MariaDB、SQLite 等数据库学习笔记，包括入门基础教程、�
 - `examples`: [实现单个简单功能的项目示例合集](examples/README.md)
 
 - `interview`: [面试题](interview/README.md)
-
-- `libraries`: 常用库详解笔记
-  - `libraries/standard`: [标准库详解](libraries/standard/README.md)
-  - `libraries/tripartite`: [第三方库详解](libraries/tripartite/README.md)
 
 - `quickstart`: 基础用法、简介
   - `quickstart/cli`: [命令行](quickstart/cli/README.md)

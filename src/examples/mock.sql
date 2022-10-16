@@ -1,6 +1,7 @@
+use base;
+
 drop table if exists `vote_record`;
 
-# 创建相关数据库表
 create table `vote_record`
 (
     `id`          int(11)     not null auto_increment,
@@ -25,7 +26,6 @@ create table `vote_record_memory`
 ) engine = memory
   default charset = utf8mb4;
 
-# 创建随机字符串，参数为字符串的长度
 create
     definer = `root`@`%` function `rand_string`(n int) returns varchar(255) charset utf8mb4
     deterministic
@@ -41,7 +41,6 @@ begin
     return return_str;
 end;
 
-# 创建插入数据存储过程
 create
     definer = `root`@`%` procedure `add_vote_memory`(in n int)
 begin
@@ -54,10 +53,8 @@ begin
         end while;
 end;
 
-# 调用存储过程
 call add_vote_memory(100000);
 
-# 从内存表插入普通表
 insert into vote_record
 select *
 from vote_record_memory;

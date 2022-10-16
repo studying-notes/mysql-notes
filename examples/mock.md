@@ -2,8 +2,8 @@
 date: 2022-09-09T13:10:17+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
-title: "MySQL 生成大量测试数据"  # 文章标题
-url:  "posts/mysql/examples/generate"  # 设置网页永久链接
+title: "MySQL 生成大量测试数据示例"  # 文章标题
+url:  "posts/mysql/examples/mock"  # 设置网页永久链接
 tags: [ "mysql", "generate" ]  # 标签
 categories: [ "MySQL 学习笔记" ]  # 分类
 
