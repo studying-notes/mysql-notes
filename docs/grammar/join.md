@@ -2,7 +2,7 @@
 date: 2020-10-15 20:52:34+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
-title: "MySQL JOIN 方法理解"  # 文章标题
+title: "JOIN 方法理解"  # 文章标题
 url:  "posts/mysql/docs/grammar/join"  # 设置网页永久链接
 tags: [ "mysql", "join" ]  # 标签
 categories: [ "MySQL 学习笔记" ]  # 分类
@@ -22,7 +22,7 @@ draft: true  # 草稿
 
 如果表中有至少一个匹配，则返回行。
 
-[![BS017F.gif](https://s1.ax1x.com/2020/10/20/BS017F.gif)](https://imgchr.com/i/BS017F)
+[![BS017F.gif](../../assets/images/docs/grammar/join/BS017F.gif)](https://imgchr.com/i/BS017F)
 
 ```sql
 SELECT websites.id, websites.name, access_log.count, access_log.date
