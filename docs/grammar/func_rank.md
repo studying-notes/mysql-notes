@@ -41,19 +41,19 @@ https://leetcode-cn.com/problems/rank-scores/
 select Score, rank() over (order by Score desc)  as `Rank` from Scores;
 ```
 
-![0vsfYj.png](../../assets/images/docs/grammar/rank/0vsfYj.png)
+![0vsfYj.png](../../assets/images/docs/grammar/func_rank/0vsfYj.png)
 
 ```sql
 select Score, dense_rank() over (order by Score desc)  as `Rank` from Scores;
 ```
 
-![0vshfs.png](../../assets/images/docs/grammar/rank/0vshfs.png)
+![0vshfs.png](../../assets/images/docs/grammar/func_rank/0vshfs.png)
 
 ```sql
 select Score, row_number() over (order by Score desc)  as `Rank` from Scores;
 ```
 
-![0vs5pn.png](../../assets/images/docs/grammar/rank/0vs5pn.png)
+![0vs5pn.png](../../assets/images/docs/grammar/func_rank/0vs5pn.png)
 
 ## 排序函数小结
 

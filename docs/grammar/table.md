@@ -106,7 +106,7 @@ SHOW TABLE STATUS FROM base LIKE 'user';
 2. `show table status from db_name like 'lhrusr'\G;` 查询 db_name 里 lhrusr 表的信息。
 3. `show table status from db_name like 'uc%'` 查询 db_name 数据库里表名以 uc 开头的表的信息。
 
-![](../../assets/images/docs/grammar/maintenance/table_status.png)
+![](../../assets/images/docs/grammar/table/table_status.png)
 
 也可以使用 `information_schema.tables` 表来查询。
 

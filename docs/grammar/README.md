@@ -11,16 +11,30 @@ toc: true  # 目录
 draft: true  # 草稿
 ---
 
-- [MySQL 基础操作](crud.md)
-- [SQL 基础操作命令手册](sql.md)
-- [MySQL 修改表的属性、增加行列等](alter.md)
-- [MySQL 函数](func.md)
-- [MySQL 索引](idx.md)
-- [MySQL JOIN 方法理解](join.md)
-- [MySQL 数值函数详解](numerical.md)
-- [MySQL 窗口函数](window.md)
-- [MySQL 窗口函数之 RANK 函数](rank.md)
-- [MySQL 字符串函数](string.md)
-- [MySQL 事务 Transaction](transaction.md)
-- [MySQL 变量定义和变量赋值](vars.md)
-- [MySQL 维护](maintainer.md)
+[基础操作](base.md)
+
+[数据库操作](database.md)
+
+[数据表操作](table.md)
+
+[增删查改](crud.md)
+
+[JOIN 方法理解](join.md)
+
+[常用日期和时间函数](func_datetime.md)
+
+[字符串函数](func_string.md)
+
+[数值函数详解](func_numerical.md)
+
+[窗口函数之排序函数函数](func_rank.md)
+
+[窗口函数](func_window.md)
+
+[函数](func.md)
+
+[维护](maintainer.md)
+
+[索引](index.md)
+
+[存储过程之变量定义和变量赋值](variable.md)
