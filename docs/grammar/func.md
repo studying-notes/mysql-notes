@@ -2,7 +2,7 @@
 date: 2020-10-12 10:41:51+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
-title: "MySQL 函数"  # 文章标题
+title: "函数"  # 文章标题
 url:  "posts/mysql/docs/grammar/func"  # 设置网页永久链接
 tags: [ "mysql", "func" ]  # 标签
 categories: [ "MySQL 学习笔记" ]  # 分类
@@ -32,7 +32,7 @@ where Countries.country_id = Weather46.country_id
 group by country_name;
 ```
 
-## IFNULL()
+### IFNULL()
 
 ```sql
 select ifnull(email, 'email'), id from users;
@@ -43,7 +43,14 @@ select ifnull(email, 'email'), id from users;
 - 对于 varchar 数据类型，无论是空字符串还是 NULL 值都不占用任何空间。
 - 对于 char 类型，无论是空字符串还是 NULL 值会占用空间，所占用空间大小取决于建表时候指定的 char 数据类型的大小。
 
-## IF()
+使用 IFNULL() 方法能使 MySQL 中的查询更加精确。IFNULL() 方法将会测试它的第一个参数，若不为 NULL 则返回该参数的值，否则返回第二个参数的值。
+
+```sql
+select vote_id, ifnull(vote_id, 'unknown') as `id`
+from vote_record;
+```
+
+### IF()
 
 三位运算符
 
@@ -68,54 +75,6 @@ any / all 关键字必须与一个比较操作符一起使用。any 表示有任
 not in 是 “<>all” 的别名，用法相同。
 
 语句 in 与 “=any” 是相同的。
-
-## 时间函数
-
-- NOW() 返回当前的日期和时间
-- CURDATE() 返回当前的日期
-- CURTIME() 返回当前的时间
-- DATE() 提取日期或日期/时间表达式的日期部分
-- EXTRACT() 返回日期/时间的单独部分
-- DATE_ADD() 向日期添加指定的时间间隔
-
-### DATE_SUB() 
-
-从日期减去指定的时间间隔。
-
-```sql
-select DATE_SUB('2019-07-5', INTERVAL 1 DAY);
-```
-
-- DATEDIFF() 返回两个日期之间的天数
-
-### DATEDIFF
-
-返回两个日期之间的天数
-
-```sql
-select datediff('2020-11-1', '2020-7-13') as days;
-```
-
-```
-111
-```
-
-- DATE_FORMAT() 用不同的格式显示日期/时间
-
-### TIMEDIFF
-
-返回两个日期之间差的时间
-
-```sql
-SELECT TIMEDIFF('1997-12-31 23:59:59.000001',
-                '1997-12-30 01:01:01.000002');
-```
-
-```
-22:58:57
-```
-
-忽略了日期部分。
 
 ## COUNT()
 
@@ -148,24 +107,3 @@ END
 ```sql
 
 ```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
-```sql
-
-```
-
