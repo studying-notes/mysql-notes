@@ -11,10 +11,37 @@ toc: true  # 目录
 draft: true  # 草稿
 ---
 
-## Docker 方式
+## 通过 Docker 启动 MySQL
+
+```shell
+docker pull mysql:latest
+```
 
 ```bash
 docker run -d --restart always --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password mysql
+```
+
+- `-p 3306:3306` ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过宿主机 `ip:3306` 访问到 MySQL 的服务
+- `MYSQL_ROOT_PASSWORD=password`：设置 MySQL 服务 root 用户的密码
+
+## Linux 下启动 MySQL 服务
+
+```shell
+service mysql status
+```
+
+```shell
+service mysql start
+```
+
+## 在 Windows 下启动 MySQL 服务
+
+```shell
+net start mysql
+```
+
+```shell
+net start mariadb
 ```
 
 ## 测试
