@@ -15,7 +15,7 @@ draft: true  # 草稿
 
 **数据库模型**是**数据库管理的形式框架**，用来描述一组数据的概念和定义。模型的结构部分规定了数据如何被描述（例如树、表等）。数据库系统的数据模型结构有3种：**网状模型、层次模型和关系模型**。
 
-![](../../assets/images/docs/theory/principle/model.png)
+![](../../assets/images/docs/theory/base/model.png)
 
 ## 数据模型
 
