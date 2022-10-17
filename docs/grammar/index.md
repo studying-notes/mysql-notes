@@ -52,7 +52,7 @@ MySQL 目前还不支持函数索引，但是支持前缀索引，即对索引�
 
 3. **使用短索引**。如果对字符串列进行索引，那么应该**指定一个前缀长度**。例如，有一个 CHAR(200) 列，如果在前 10 个字符内，大多数值是唯一的，那么就不要对整个列使用索引。对前 10 个字符进行索引能够节省大量索引空间，也会使查询更快，因为较小的索引涉及的磁盘 I/O 较少，较短的值比较起来更快。更为重要的是，对于较短的键值，索引高速缓存中的块能容纳更多的键值，因此，MySQL 也可以在内存中容纳更多的值。
 
-4. **利用最左前缀**。在创建一个 n 列的索引时，实际是创建了 MySQL 可利用的n个索引。多列索引可以起到多个索引的作用，因为可利用索引中最左边的列集来匹配行。这样的列集被称为最左前缀（Leftmost Prefixing）。
+4. **利用最左前缀**。在创建一个 n 列的索引时，实际是创建了 MySQL 可利用的 n 个索引。多列索引可以起到多个索引的作用，因为可利用索引中最左边的列集来匹配行。这样的列集被称为最左前缀（Leftmost Prefixing）。
 
 5. 不要过度索引。不要以为索引“越多越好”，什么东西都用索引是错误的。因为**每个索引都要占用额外的磁盘空间**，并降低写操作的性能，增加维护成本。在修改表的内容时，索引必须进行更新，有时也可能需要重构，因此，索引越多，维护索引所花的时间也就越长。如果有一个索引很少利用或从不使用，那么会不必要地减缓表的修改速度。此外，MySQL 在生成一个执行计划时，要考虑各个索引，这也要花费时间。创建多余的索引给查询优化带来了更多的工作。索引太多，也可能会使 MySQL 选择不到所要使用的最好索引。只保持所需的索引有利于查询优化。
 
@@ -72,9 +72,19 @@ MySQL 目前还不支持函数索引，但是支持前缀索引，即对索引�
 
 **主键是一种特殊的唯一索引**，在一张表中只能定义一个主键索引，逐渐用于唯一标识一条记录，是用关键字 PRIMARY KEY 来创建。
 
-## 联合索引
+## 联合索引/复合索引
 
 **索引可以覆盖多个数据列**，例如 INDEX 索引，这就是联合索引。
+
+前导列是创建复合索引语句的第一列或者连续的多列。
+
+比如，
+
+```sql
+CREATE INDEX idx ON table(x, y, z)
+```
+
+那么 x,xy,xyz 都是前导列，而 yz, y, z 这样的就不是。
 
 ## 覆盖索引
 
@@ -222,71 +232,17 @@ where match(title, content) against('hello');
 
 ## 索引未被使用的情况
 
-1. 若索引列出现了隐式类型转换（ Implicit Type Conversion ），则 MySQL 不会使用索引。常见的情况是，如果在 SQL 的 WHERE 条件中，字段类型为字符串，而其值为数值，那么 MySQL 不会使用索引，这个规则和 Oracle 是一致的，所以，字符类型的字段值应该加上引号。
-2. 在使用 cast 函数时，需要保证字符集一样，否则 MySQL 不会使用索引。
-3. 如果 WHERE 条件中含有 OR ，除非 OR 条件中的所有列都是索引列，否则 MySQL 不会选择索引。
-4. 对于多列索引，若没有使用前导列，则 MySQL 不会使用索引。
-5. 在 WHERE 子句中，如果索引列所对应的值的第一个字符由通配符（ WILDCARD ）开始，索引将不被采用，然而当通配符出现在字符串其他位置时，优化器就能利用索引。
-6. 如果 MySQL 估计使用全表扫描要比使用索引快，那么 MySQL 将不使用索引。
-7. 如果对索引字段进行函数、算术运算或其他表达式等操作，那么 MySQL 也不使用索引。
+1. **索引列出现了隐式类型转换**（Implicit Type Conversion）。常见的情况是，如果在 SQL 的 WHERE 条件中，字段类型为字符串，而其值为数值，那么 MySQL 不会使用索引，所以，**字符类型的字段值应该加上引号**。
+2. 使用显式类型转换函数时，**字符集不一样**。
+3. JOIN 查询关联的字段字符集不一样。
+4. **WHERE 条件中含有 OR** ，除非 OR 条件中的所有列都是索引列。
+5. **联合索引/多列索引没有使用前导列**。
+6. 在 WHERE 子句中，**索引列所对应的值的第一个字符由通配符(WILDCARD)开始**，索引将不被采用，然而当通配符出现在字符串其他位置时，优化器就能利用索引。
+7. MySQL 估计使用**全表扫描要比使用索引快**。
+8. 对索引字段进行函数、算术运算或其他表达式(`!=` 或者 `<>`, `not in`,  `is null`， `is not null`)等操作。
 
-## 例题
+## 索引不适合的场景
 
-```sql
-create database job;
-use job;
-show databases;
-```
-
-```sql
-create table user
-(
-    user_id   int(10) primary key not null unique auto_increment,
-    user_name varchar(20)         not null,
-    password  varchar(20)         not null,
-    info      text,
-    -- 在 userid 字段上创建名为 index_uid 的唯一性索引，并且以降序的形式排列
-    unique index index_uid (user_id desc),
-    -- 在 username 和 passwd 字段上创建名为 index_user 的多列索引
-    index index_user (user_name, password),
-    -- 在 info 字段上创建名为 index_info 的全文索引
-    FULLTEXT index_info (info)
-) engine = innodb;
-```
-
-```sql
-create table information
-(
-    id       int(10) primary key not null unique auto_increment,
-    name     varchar(20)         not null,
-    sex      varchar(4)          not null,
-    birthday date,
-    address  varchar(50),
-    tel      varchar(20),
-    pic      blob
-);
-
-show create table information;
-```
-
-```sql
--- 在name字段创建名为index_name的单列索引，索引长度为10
-create index index_name on information (name(10));
-
--- 在birthday和address字段是创建名为index_bir的多列索引
-create index index_bir on information (birthday, address);
-
--- 用ALTER TABLE语句在id字段上创建名为index_id的唯一性索引，而且以升序排列
-alter table information
-    add unique index index_id (id asc);
-
--- 删除user表上的index_user索引
-drop index index_user on user;
-
--- 删除information表上的index_name索引
-drop index index_name on information;
-```
-
-```sql
-
-```
+- 数据量少的不适合加索引
+- 更新比较频繁的也不适合加索引
+- 区分度低的字段不适合加索引（比如性别）

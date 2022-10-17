@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS base;
+
 use base;
 
 drop table if exists `vote_record`;

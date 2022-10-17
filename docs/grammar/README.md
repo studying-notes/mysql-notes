@@ -35,6 +35,9 @@ draft: true  # 草稿
 
 [维护](maintainer.md)
 
+[优化](optimization.md)
+
 [索引](index.md)
 
 [存储过程之变量定义和变量赋值](variable.md)
+

@@ -47,7 +47,7 @@ mysqld_multi 常用的命令如下所示：
 
 当使用范围条件而不是相等条件检索数据的时候，并请求共享或排它锁时，InnoDB 会给符合条件的已有数据记录的索引项加锁；对于键值在条件范围内但并不存在的记录，称为“间隙（GAP）”，InnoDB 也会对这个“间隙”加锁，这种锁机制就是所谓的间隙（Next-Key）锁。
 
-间隙锁是 InnoDB 中行锁的一种，但是这种锁锁住的不止一行数据，它锁住的是多行，是一个数据范围。间隙锁的主要作用是为了防止出现幻读（Phantom Read），用在 Repeated-Read（简称RR）隔离级别下。在 Read-Commited（简称RC）下，一般没有间隙锁（有外键情况下例外，此处不考虑）。间隙锁还用于恢复和复制。
+**间隙锁是 InnoDB 中行锁的一种，但是这种锁锁住的不止一行数据，它锁住的是多行，是一个数据范围。**间隙锁的主要作用是为了**防止出现幻读**（Phantom Read），用在 Repeated-Read（简称RR）隔离级别下。在 Read-Commited（简称RC）下，一般没有间隙锁（有外键情况下例外，此处不考虑）。间隙锁还用于恢复和复制。
 
 间隙锁的出现主要集中在同一个事务中先 DELETE 后 INSERT 的情况下，当通过一个条件删除一条记录的时候，如果条件在数据库中已经存在，那么这个时候产生的是普通行锁，即锁住这个记录，然后删除，最后释放锁。如果这条记录不存在，那么问题就来了，数据库会扫描索引，发现这个记录不存在，这个时候的 DELETE 语句获取到的就是一个间隙锁，然后数据库会向左扫描，扫到第一个比给定参数小的值，向右扫描，扫描到第一个比给定参数大的值，然后以此为界，构建一个区间，锁住整个区间内的数据，一个特别容易出现死锁的间隙锁诞生了。
 
@@ -59,9 +59,17 @@ mysqld_multi 常用的命令如下所示：
 
 ## 用于查看锁的命令
 
-### show processlist
+### SHOW PROCESSLIST;
 
-“show processlist;” 可以显示哪些线程正在运行。如果当前用户有 SUPER 权限，那么就可以看到所有线程。如果有线程正在 UPDATE 或者 INSERT 某个表，那么进程的 status 为 updating 或者 sending data。“show processlist;” 只列出前100条数据，如果想列出所有结果，那么可以使用“show full processlist;”。
+显示哪些线程正在运行。
+
+如果当前用户有 SUPER 权限，那么就可以看到所有线程。如果有线程正在 UPDATE 或者 INSERT 某个表，那么进程的 status 为 updating 或者 sending data。
+
+默认只列出前 100 条数据，如果想列出所有结果，那么可以使用
+
+```sql
+show full processlist;
+```
 
 其中，Id 表示连接 id，可以使用 connection_id() 获取；Time 表示当前命令持续的时间，单位为秒；State 表示当前命令的操作状态，下面是一些常见的状态（State）：
 
@@ -69,15 +77,15 @@ mysqld_multi 常用的命令如下所示：
 
 ![](../../assets/images/docs/grammar/maintenance/process_state2.png)
 
-### show open tables
+### SHOW OPEN TABLES;
 
 这条命令能够查看当前有哪些表是打开的。in_use 列表示有多少线程正在使用某张表，name_locked 表示该表是否被锁，一般发生在使用 DROP 或 RENAME 命令操作这张表时。所以这条命令不能查询到当前某张表是否有死锁，谁拥有表上的这个锁等信息。
 
 ```sql
 -- 给数据表上锁
-lock tables sql_test.vote_record write;
+lock tables base.vote_record write;
 
-show open tables from sql_test;
+show open tables from base;
 
 show open tables where In_use > 0;
 
@@ -85,12 +93,12 @@ show open tables where In_use > 0;
 unlock tables;
 ```
 
-### show engine innodb status
+### SHOW ENGINE INNODB STATUS;
 
 查询 InnoDB 存储引擎的运行时信息，包括死锁的详细信息。
 
 ```sql
-show engine innodb status;
+SHOW ENGINE INNODB STATUS;
 ```
 
 ![](../../assets/images/docs/grammar/maintenance/innodb_status.png)

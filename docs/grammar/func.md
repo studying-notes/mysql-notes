@@ -11,6 +11,31 @@ toc: true  # 目录
 draft: true  # 草稿
 ---
 
+## 显式转换数据类型
+
+### CAST
+
+```sql
+CAST(expr AS type)
+```
+
+可以转换的类型是有限制的。这个类型可以是以下值其中的一个：
+
+- 二进制，同带 binary 前缀的效果 : BINARY
+- 字符型，可带参数 : CHAR()
+- 日期 : DATE
+- 时间 : TIME 
+- 日期时间型 : DATETIME
+- 浮点数 : DECIMAL
+- 整数 : SIGNED
+- 无符号整数 : UNSIGNED
+
+### CONVERT
+
+```sql
+CONVERT(expr USING charset_name)
+```
+
 ## 条件判断函数
 
 ### coalesce
