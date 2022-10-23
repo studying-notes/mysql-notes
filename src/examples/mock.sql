@@ -4,7 +4,7 @@ use base;
 
 drop table if exists `vote_record`;
 
-create table `vote_record`
+create table if not exists `vote_record`
 (
     `id`          int(11)     not null auto_increment,
     `user_id`     varchar(20) not null,
@@ -16,7 +16,7 @@ create table `vote_record`
 ) engine = innodb
   default charset = utf8mb4;
 
-create table `vote_record_memory`
+create table if not exists `vote_record_memory`
 (
     `id`          int(11)     not null auto_increment,
     `user_id`     varchar(20) not null,

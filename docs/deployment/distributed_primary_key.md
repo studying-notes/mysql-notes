@@ -3,7 +3,7 @@ date: 2022-10-17T16:45:57+08:00  # 创建日期
 author: "Rustle Karl"  # 作者
 
 title: "如何选择合适的分布式主键方案"  # 文章标题
-url:  "posts/mysql/docs/deployment/distributed_id"  # 设置网页永久链接
+url:  "posts/mysql/docs/deployment/distributed_primary_key"  # 设置网页永久链接
 tags: [ "mysql", "distributed-id" ]  # 标签
 categories: [ "MySQL 学习笔记" ]  # 分类
 

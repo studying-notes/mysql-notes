@@ -122,17 +122,26 @@ SELECT TIMEDIFF('1997-12-31 23:59:59.000001',
 
 ##  FROM_UNIXTIME 和 UNIX_TIMESTAMP 的作用
 
-函数 FROM_UNIXTIME 将 MySQL 中用 10 位数字存储的时间以日期格式来显示。
+函数 FROM_UNIXTIME 将 MySQL 中用 **10 位数字存储的时间以日期格式来显示**。
 
 语法：FROM_UNIXTIME(unix_timestamp,format)
 
-函数 UNIX_TIMESTAMP 返回指定时间的 UNIX 格式数字串，即 UNIX 时间戳（从 UTC 时间 '1970-01 -01 00:00:00' 开始的秒数），通常为十位，如 1344887103。
+函数 UNIX_TIMESTAMP 返回**指定时间的 UNIX 格式数字串**，即 UNIX 时间戳（从 UTC 时间 '1970-01 -01 00:00:00' 开始的秒数），通常为十位，如 1344887103。
 
 语法：UNIX_TIMESTAMP( date )
 
 参数：date 可能是个 DATE 字符串，DATETIME 字符串，TIMESTAPE 字符串，或者是一个类似于 YYMMDD 或者 YYYYMMDD 的数字串。
 
 返回：从 UTC 时间 '1970-01 -01 00:00:00' 开始到该参数之间的秒数。服务器将参数 date 转化成 UTC 格式的内部时间。客户端则可以自行设置当前时区。当 UNIX_TIMESTAMP() 用于 1 个 TIMESTAMP 列时，函数直接返回内部时间戳的值；如果传递 1 个超出范围的时间到 UNIX_TIMESTAMP()，它的返回值是零。如果 date 为空，那么将返回从 UTC 时间 ' 1970-01 -01 00:00:00' 开始到当前时间的秒数。
+
+## DATETIME 和 TIMESTAMP 的区别
+
+存储精度都为秒。
+
+- DATETIME 的日期范围是 1001-9999 年；TIMESTAMP 的时间范围是 1970-2038 年
+- DATETIME 存储时间与时区无关；TIMESTAMP 存储时间与时区有关，显示的值也依赖于时区
+- DATETIME 的存储空间为 8 字节；TIMESTAMP 的存储空间为 4 字节
+- DATETIME 的默认值为 null；TIMESTAMP 的字段默认不为空(not null)，默认值为当前时间(CURRENT_TIMESTAMP)
 
 ```sql
 

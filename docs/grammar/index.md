@@ -27,6 +27,34 @@ draft: true  # 草稿
 
 对已经建立了索引的表中插入数据时，插入一条数据就要对该记录按索引排序。因此，当导入大量数据的时候，速度会很慢。解决这种情况的办法是，在没有任何索引的情况插入数据，然后建立索引。
 
+## 创建索引的三种方式
+
+在执行CREATE TABLE时创建索引
+
+```sql
+CREATE TABLE `employee` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `sex` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_name` (`name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+使用ALTER TABLE命令添加索引
+
+```sql
+ALTER TABLE table_name ADD INDEX index_name (column);
+```
+
+使用CREATE INDEX命令创建
+
+```sql
+CREATE INDEX index_name ON table_name (column);
+```
+
 ## MySQL 中的索引分类
 
 MySQL 的所有列类型都可以被索引。InnoDB 类型的表默认创建的都是 BTREE 索引；MEMORY 类型的表默认使用 HASH 索引，但是也支持 BTREE 索引；空间列类型的索引使用 RTREE（空间索引）。
@@ -86,11 +114,17 @@ CREATE INDEX idx ON table(x, y, z)
 
 那么 x,xy,xyz 都是前导列，而 yz, y, z 这样的就不是。
 
+当我们创建一个组合索引的时候，如 (k1, k2 ,k3)，相当于创建了（k1）、(k1, k2) 和 (k1, k2, k3) 三个索引，这就是最左匹配原则。
+
+```sql
+select * from table where k1=A AND k2=B AND k3=D 
+```
+
+有关于复合索引，我们需要关注查询条件的顺序，确保最左匹配原则有效，同时可以删除不必要的冗余索引。
+
 ## 覆盖索引
 
-如果**一个索引包含所有满足查询所需要的数据**，那么就称这类索引为**覆盖索引**（Covering Index）。**索引覆盖查询不需要回表操作**。
-
-一旦索引定位到数据地址后，这里会有一个「回表」的操作，就是返回原始表中对应行的数据，以便引擎进行再次过滤，一旦回表操作过于频繁，那么性能无疑将急剧下降。
+如果**一个索引包含所有满足查询所需要的数据**，那么就称这类索引为**覆盖索引**（Covering Index）。**索引覆盖查询不需要回表操作**。索引即是数据。
 
 在 MySQL 中，可以通过使用 explain 命令输出的 Extra 列来判断是否使用了索引覆盖查询。若使用了索引覆盖查询，则 Extra 列包含“Using index””字符串。MySQL 查询优化器在执行查询前会判断是否有一个索引能执行覆盖查询。
 
